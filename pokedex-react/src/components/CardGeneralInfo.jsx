@@ -1,0 +1,117 @@
+// src/components/CardGeneralInfo.jsx
+import { motion } from "framer-motion";
+import StatBar from "./StatBar";
+import RadarChart from "./RadarChart";
+import { useState } from "react";
+
+const typeColors = {
+    normal: "bg-[#9ea09e]", fire: "bg-[#e72324]", water: "bg-[#2481f0]", electric: "bg-[#fac100]",
+    grass: "bg-[#3ca024]", ice: "bg-[#3dd8fe]", fighting: "bg-[#ff8100]", poison: "bg-[#923fcc]",
+    ground: "bg-[#92501b]", flying: "bg-[#82baf0]", psychic: "bg-[#ef3f7a]", bug: "bg-[#91a112]",
+    rock: "bg-[#b0ab82]", ghost: "bg-[#6f3f70]", dragon: "bg-[#4f60e2]", dark: "bg-[#4d3e3b]",
+    steel: "bg-[#60a2b9]", fairy: "bg-[#e96eea]"
+  };
+
+const getTypeColor = (typeName) => {
+  return typeColors[typeName.toLowerCase()] || "bg-gray-300";
+};
+
+export default function CardGeneralInfo({ pokemon }) {
+  const [showOfficialArtwork, setShowOfficialArtwork] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white text-gray-900 p-6 shadow-xl space-y-4"
+    >
+      <div className="w-full flex justify-end sm:justify-start mb-4">
+          <button
+            onClick={() => setShowOfficialArtwork(!showOfficialArtwork)}
+            className="relative inline-block px-4 py-2 text-xs font-bold text-white rounded overflow-hidden z-10 bg-white/10 backdrop-blur-lg group cursor-pointer shadow-md rounded-full"
+          >
+          <span className="absolute inset-0 bg-[linear-gradient(135deg,_red,_orange,_yellow,_green,_blue,_indigo,_violet,_red,_orange)] animate-gradient-x rounded-full z-[-1]"></span>
+          <span className="relative z-10 text-shadow">
+            {showOfficialArtwork ? "Sprite" : "ArtWork"}
+          </span>
+        </button>
+      </div>
+      <div className="flex justify-center gap-4 flex-wrap">
+        {showOfficialArtwork ? (
+          pokemon.sprites.other?.['official-artwork']?.front_default && (
+            <img
+              src={pokemon.sprites.other['official-artwork'].front_default}
+              alt="Official Artwork"
+              onClick={() => setIsZoomed(true)}
+              className="w-40 cursor-zoom-in transition-transform duration-200 scale-140 hover:scale-145"
+            />
+          )
+        ) : (
+          <>
+            {pokemon.sprites.front_default && (
+              <img src={pokemon.sprites.front_default} alt="Frente" className="w-20 pixelated scale-110" />
+            )}
+            {pokemon.sprites.back_default && (
+              <img src={pokemon.sprites.back_default} alt="Espalda" className="w-20 pixelated scale-110" />
+            )}
+            {pokemon.sprites.front_shiny && (
+              <img src={pokemon.sprites.front_shiny} alt="Shiny" className="w-20 pixelated scale-110" />
+            )}
+          </>
+        )}
+      </div>
+      {isZoomed && (
+        <div
+          className="fixed inset-0 flex items-center justify-center z-50"
+          onClick={() => setIsZoomed(false)}
+        >
+          <img
+            src={pokemon.sprites.other['official-artwork'].front_default}
+            alt="Zoomed Official Artwork"
+            className="max-w-full max-h-full cursor-zoom-out bg-black bg-opacity-80 rounded-lg shadow-2xl scale-100 sm:scale-100 md:scale-125 lg:scale-140"
+          />
+        </div>
+      )}
+
+
+      <h2 className="text-xl font-bold uppercase text-center">{pokemon.name}</h2>
+
+      <p className="text-sm text-center text-gray-700">
+        {pokemon.description || "Sin descripción disponible."}
+      </p>
+
+      <div>
+        <h3 className="font-semibold">Tipos:</h3>
+        <div className="flex gap-2 mt-1 justify-center flex-wrap">
+          {pokemon.types.map((t, i) => (
+            <span
+              key={t.type.name}
+              className={`px-2 py-1 text-white font-semibold ${getTypeColor(t.type.name)} text-shadow`}
+            >
+              {pokemon.translatedTypes?.[i] || t.type.name}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="font-semibold mb-2">Estadísticas:</h3>
+        <div className="space-y-1">
+          {pokemon.stats.map((stat, i) => (
+            <StatBar
+              key={stat.stat.name}
+              name={pokemon.translatedStats?.[i] || stat.stat.name}
+              value={stat.base_stat}
+            />
+          ))}
+        </div>
+
+        <div className="mt-4 mx-auto">
+          <RadarChart stats={pokemon.stats} />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
