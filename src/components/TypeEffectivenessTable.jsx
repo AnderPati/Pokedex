@@ -68,14 +68,14 @@ export default function TypeEffectivenessTable() {
 
   return (
     <div className="align w-full max-w-full overflow-x-auto">
-      <table className="min-w-[1000px] table-auto border-collapse border border-white text-xd animate-fade-in mx-auto">
+      <table className="min-w-[1000px] table-auto border-collapse border border-white text-xd animate-fade-in mx-auto bg-black/70 backdrop-blur-md">
         <thead>
           <tr>
             <th className="sticky left-0 z-10 border border-white p-2 bg-black text-white">ATK\DF</th>
             {typeList.map((type, colIdx) => (
               <th
                 key={type}
-                className={`border px-1 py-0.5 text-center text-[10px] whitespace-nowrap h-8 text-white ${getTypeColor(type)} text-shadow`}
+                className={`border px-1 py-0.5 text-center text-[14px] whitespace-nowrap h-8 text-white ${getTypeColor(type)} text-shadow`}
               >
                 {typeTranslations[type]}
               </th>
@@ -86,7 +86,7 @@ export default function TypeEffectivenessTable() {
           {typeList.map((attacker, rowIdx) => (
             <tr key={attacker}>
               <th
-                className={`sticky left-0 z-10 border px-1 py-0.5 text-center text-[10px] whitespace-nowrap h-8 text-white ${getTypeColor(attacker)} text-shadow`}
+                className={`sticky left-0 z-10 border px-1 py-0.5 text-center text-[14px] whitespace-nowrap h-8 text-white ${getTypeColor(attacker)} text-shadow`}
               >
                 {typeTranslations[attacker]}
               </th>
@@ -113,7 +113,7 @@ export default function TypeEffectivenessTable() {
                 return (
                   <td
                     key={defender}
-                    className={`border px-2 py-1 text-center text-[10px] font-semibold ${bgClass} ${highlightBorder}`}
+                    className={`border px-2 py-1 text-center text-[14px] font-semibold ${bgClass} ${highlightBorder}`}
                     onMouseEnter={() => setHoveredCell({ row: rowIdx, col: colIdx })}
                     onMouseLeave={() => setHoveredCell({ row: null, col: null })}
                   >

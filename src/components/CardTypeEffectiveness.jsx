@@ -69,10 +69,10 @@ export default function CardTypeEffectiveness({ pokemon }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="bg-white text-gray-900 p-6 shadow-xl space-y-4"
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 shadow-2xl p-6 text-white space-y-6"
     >
       <h3 className="text-xl font-bold pb-2">Daño recibido</h3>
 
@@ -95,7 +95,7 @@ export default function CardTypeEffectiveness({ pokemon }) {
                         types.map((type) => (
                           <span
                             key={type}
-                            className={`text-white px-2 py-1 text-xs font-semibold uppercase ${getTypeColor(type)} text-shadow `}
+                            className={`text-white px-2 py-1 text-xs font-semibold uppercase rounded-full ${getTypeColor(type)} text-shadow `}
                           >
                             {typeTranslations[type] || type}
                           </span>

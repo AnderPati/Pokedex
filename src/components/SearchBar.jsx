@@ -31,18 +31,18 @@ export default function SearchBar({ search, setSearch, onSearch, suggestions, se
   }, [setSuggestions]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 mb-6 items-center z-10">
-      <div ref={wrapperRef} className="relative w-86">
+    <div className="flex mb-4 items-center justify-center w-full z-10">
+      <div ref={wrapperRef} className="relative w-70 sm:w-86">
         <input
           type="text"
           value={search}
           onChange={handleChange}
           onKeyDown={handleKeyPress}
-          className="w-full px-4 py-3 text-[#01302c] bg-white border-2 shadow-lg placeholder:text-[#01302c] focus:outline-none focus:border-[#279cea] transition"
-          placeholder="Busca un Pokémon..."
+          className="w-full px-4 py-2 md:px-6 md:py-3 text-[#01302c] rounded-l-full bg-white border-y-2 border-l-2 shadow-lg placeholder:text-[#01302c] focus:outline-none transition"
+          placeholder="Busca un Pokémon o ID..."
         />
         {suggestions.length > 0 && (
-          <ul className="absolute w-full mt-1 bg-white text-black border border-gray-300 z-10 max-h-48 overflow-y-auto shadow-xl">
+          <ul className="absolute w-full mt-1 bg-white text-black border-gray-300 z-10 max-h-48 overflow-y-auto shadow-xl rounded-lg">
             {suggestions.map((name) => (
               <li
                 key={name}
@@ -65,10 +65,11 @@ export default function SearchBar({ search, setSearch, onSearch, suggestions, se
           onSearch();
           setSuggestions([]);
         }}
-        className="px-6 py-3 text-[#01302c] font-bold bg-[#51ae5e] border-2 border-[#01302c] cursor-pointer rounded-none shadow-lg"
+        className="px-4 py-2 md:px-6 md:py-3 text-[#01302c] font-bold bg-[#51ae5e] border-y-2 border-r-2 border-[#01302c] cursor-pointer rounded-r-full shadow-lg"
       >
         BUSCAR
       </button>
     </div>
+
   );
 }

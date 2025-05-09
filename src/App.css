@@ -40,3 +40,19 @@
   background-size: 1000% 1000%;
   animation: gradient-x 45s infinite;
 }
+
+@keyframes epic-glow {
+  0%, 100% {
+    text-shadow: 0 0 10px #fff, 0 0 20px #f0f, 0 0 30px #0ff;
+  }
+  50% {
+    text-shadow: 0 0 20px #ff0, 0 0 30px #f00, 0 0 40px #00f;
+  }
+}
+
+@layer utilities {
+  .text-stroke {
+    -webkit-text-stroke: .5px #161616; /* ancho y color del borde */
+    text-stroke: .5px #161616;
+  }
+}

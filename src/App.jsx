@@ -3,6 +3,7 @@ import './app.css';
 import SearchBar from "./components/SearchBar";
 import PokemonCard from "./components/PokemonCards";
 import TypeEffectivenessTable from "./components/TypeEffectivenessTable";
+import { motion } from "framer-motion";
 
 function App() {
   const [view, setView] = useState("search");
@@ -35,6 +36,7 @@ function App() {
       setPokemon(null);
       return;
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setView("search");
     setLoadingPokemon(true);
 
@@ -117,59 +119,14 @@ function App() {
     }
   };
 
+  const randomOffset = () => Math.floor(Math.random() * 61) - 30; // -30 a 30
+
   return (
-    <div className="relative min-h-screen bg-[#222323] border-t-4 border-[#da082b] text-white px-4 sm:px-8 py-10 flex flex-col items-center overflow: hidden; z-10">
-      
-      
-      {pokemon?.sprites?.other?.['official-artwork']?.front_default && (
-        <img
-          src={pokemon.sprites.other['official-artwork'].front_default}
-          alt={`${pokemon.name} artwork`}
-          className="
-            fixed
-            max-h-[90vh]
-            opacity-40
-            pointer-events-none
-            z-[-1]
-            select-none
+    <div className="relative min-h-screen bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] text-white px-4 sm:px-8 z-10">
 
-            /* Posición y escala por defecto (móvil): centrado */
-            top-10 left-1/2 transform -translate-x-1/2 scale-120
-
-            /* En pantallas medianas en adelante: anclado a izquierda con más escala */
-            md:top-20 md:bottom-0 md:left-20 md:translate-x-0 md:translate-y-0 md:scale-160
-          "
-        />
-      )}
-
-      {/* Botones decorativos */}
-      <div className="absolute top-4 left-4 flex space-x-2 z-10">
-        <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-[#279cea] border-2 border-b-[#1a699d] border-r-[#1a699d] shadow-md"></div>
-        <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-red-600 border-2 border-[#222323] shadow-md"></div>
-        <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-yellow-400 border-2 border-[#222323] shadow-md"></div>
-        <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-green-500 border-2 border-[#222323] shadow-md"></div>
-      </div>
-
-      {/* Navegación */}
-      <div className="absolute top-4 right-4 flex flex-col sm:flex-row gap-2 z-10">
-        <button
-          onClick={() => setView("pokedex")}
-          className="bg-[#279cea] text-[#082437] font-bold px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base rounded"
-        >
-          Ver Pokédex
-        </button>
-        <button
-          onClick={() => setView("types")}
-          className="bg-[#279cea] text-[#082437] font-bold px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-base rounded"
-        >
-          Tabla de tipos
-        </button>
-      </div>
-
-      {/* Título */}
-      <h1 className="text-4xl lg:text-5xl text-[#da082b] mb-10 mt-15 sm:mt-10 text-center">Pokédex</h1>
-
-      {/* Buscador */}
+    {/* Sticky Header */}
+    <div className="sticky top-0 -mx-4 sm:-mx-8 z-20 bg-[#0f0f0f]/90 backdrop-blur-xs py-4">
+      <h1 className="mt-10 sm:mt-0 text-4xl md:text-5xl text-[#da082b] text-center mb-6 font-black">POKÉDEX</h1>
       <SearchBar
         search={search}
         setSearch={setSearch}
@@ -179,34 +136,77 @@ function App() {
         pokemonList={pokemonList}
       />
 
-      {/* Vista según modo */}
-      {view === "search" && (
-        loadingPokemon ? (
-          <div className="my-12 flex flex-col items-center space-y-4">
-            <div className="relative w-16 h-16 animate-spin-slow">
-              <div className="absolute inset-0 border-[6px] border-white border-t-[#da082b] rounded-full"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-3 h-3 bg-[#da082b] rounded-full animate-ping"></div>
+      {/* Navegación */}
+      <div className="absolute top-4 right-4 flex flex-row sm:flex-col gap-2 z-10">
+        <button
+          onClick={() => setView("pokedex")}
+          className="bg-[#279cea] text-[#082437] font-bold px-3 py-1 md:px-4 md:py-2 text-sm lg:text-base rounded-full"
+        >
+          Ver Pokédex
+        </button>
+        <button
+          onClick={() => setView("types")}
+          className="bg-[#279cea] text-[#082437] font-bold px-3 py-1 md:px-4 md:py-2 text-sm lg:text-base rounded-full"
+        >
+          Tabla de tipos
+        </button>
+      </div>
+
+        {/* Botones decorativos */}
+        <div className="absolute top-4 left-4 flex space-x-2 z-10">
+          <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-[#279cea] border-2 border-b-[#1a699d] border-r-[#1a699d] shadow-md"></div>
+          <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-red-600 border-2 border-[#222323] shadow-md"></div>
+          <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-yellow-400 border-2 border-[#222323] shadow-md"></div>
+          <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-green-500 border-2 border-[#222323] shadow-md"></div>
+        </div>
+      </div>
+
+      {pokemon?.sprites?.other?.['official-artwork']?.front_default && (
+        <motion.div
+          key={pokemon.name}
+          initial={{ opacity: 0, x: randomOffset(), y: randomOffset(), scale: 1.05 }}
+          animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="pointer-events-none select-none fixed z-[-1] absolute max-h-[90vh] top-85 md:-mt-10 left-1/2 transform -translate-y-1/2 -translate-x-1/2 scale-[1.2] lg:mt-10 md:top-1/2 lg:left-[15%] lg:translate-x-0 md:scale-[1.4]"
+        >
+          <img
+            src={pokemon.sprites.other['official-artwork'].front_default}
+            alt={`${pokemon.name} artwork`}
+          />
+        </motion.div>
+      )}
+
+
+      {/* Contenido principal */}
+      <div className="py-10 flex flex-col items-center">
+        {view === "search" && (
+          loadingPokemon ? (
+            <div className="my-12 flex flex-col items-center space-y-4">
+              <div className="relative w-16 h-16 animate-spin-slow">
+                <div className="absolute inset-0 border-[6px] border-white border-t-[#da082b] rounded-full"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-3 h-3 bg-[#da082b] rounded-full animate-ping"></div>
+                </div>
+              </div>
+              <p className="text-white font-mono text-lg animate-pulse drop-shadow-md">Capturando Pokémon</p>
+              <div className="w-48 h-2 bg-gray-700 rounded-full overflow-hidden">
+                <div className="h-full bg-[#da082b] animate-loading-bar"></div>
               </div>
             </div>
-            <p className="text-white font-mono text-lg animate-pulse drop-shadow-md">Capturando Pokémon</p>
-            <div className="w-48 h-2 bg-gray-700 rounded-full overflow-hidden">
-              <div className="h-full bg-[#da082b] animate-loading-bar"></div>
-            </div>
-          </div>
-        ) : (
-          <>
-            {error && <p className="text-red-400 font-mono text-center">{error}</p>}
-            {pokemon && <PokemonCard pokemon={pokemon} onSelectPokemon={fetchPokemon} />}
-          </>
-        )
-      )}
+          ) : (
+            <>
+              {error && <p className="text-red-400 font-mono text-center">{error}</p>}
+              {pokemon && <PokemonCard pokemon={pokemon} onSelectPokemon={fetchPokemon} />}
+            </>
+          )
+        )}
 
-      {view === "pokedex" && (
-        <p className="text-white font-mono mt-10 text-center">Aquí irá la Pokédex completa (próximamente sorry) :3</p>
-      )}
+        {view === "pokedex" && (
+          <p className="text-white font-mono mt-10 text-center">Aquí irá la Pokédex completa (próximamente sorry) :3</p>
+        )}
 
-      {view === "types" && <TypeEffectivenessTable />}
+        {view === "types" && <TypeEffectivenessTable />}
+      </div>
     </div>
   );
 }

@@ -22,15 +22,15 @@ export default function CardGeneralInfo({ pokemon }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="bg-white text-gray-900 p-6 shadow-xl space-y-4"
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="rounded-2xl bg-black/50 backdrop-blur-md border border-white/10 shadow-2xl p-6 text-white space-y-6"
     >
-      <div className="w-full flex justify-end sm:justify-start mb-4">
+      <div className="w-full flex justify-end mb-4">
           <button
             onClick={() => setShowOfficialArtwork(!showOfficialArtwork)}
-            className="relative inline-block px-4 py-2 text-xs font-bold text-white rounded overflow-hidden z-10 bg-white/10 backdrop-blur-lg group cursor-pointer shadow-md rounded-full"
+            className="relative inline-block px-4 py-2 text-xs font-bold text-white rounded overflow-hidden z-10 bg-white/10 group cursor-pointer shadow-md rounded-full"
           >
           <span className="absolute inset-0 bg-[linear-gradient(135deg,_red,_orange,_yellow,_green,_blue,_indigo,_violet,_red,_orange)] animate-gradient-x rounded-full z-[-1]"></span>
           <span className="relative z-10 text-shadow">
@@ -76,9 +76,11 @@ export default function CardGeneralInfo({ pokemon }) {
       )}
 
 
-      <h2 className="text-xl font-bold uppercase text-center">{pokemon.name}</h2>
+      <span className={`px-3 py-1 rounded-full text-2xl text-center font-semibold uppercase bg-opacity-80 backdrop-blur-md`}>
+        {pokemon.name}
+      </span> 
 
-      <p className="text-sm text-center text-gray-700">
+      <p className="text-center text-md text-white/80 leading-relaxed italic max-w-md mx-auto">
         {pokemon.description || "Sin descripción disponible."}
       </p>
 
@@ -88,7 +90,7 @@ export default function CardGeneralInfo({ pokemon }) {
           {pokemon.types.map((t, i) => (
             <span
               key={t.type.name}
-              className={`px-2 py-1 text-white font-semibold ${getTypeColor(t.type.name)} text-shadow`}
+              className={`px-2 py-1 text-white rounded-full font-semibold ${getTypeColor(t.type.name)} text-shadow`}
             >
               {pokemon.translatedTypes?.[i] || t.type.name}
             </span>
@@ -108,7 +110,7 @@ export default function CardGeneralInfo({ pokemon }) {
           ))}
         </div>
 
-        <div className="mt-4 mx-auto">
+        <div className="mt-6 w-full h-80  flex justify-center items-center">
           <RadarChart stats={pokemon.stats} />
         </div>
       </div>

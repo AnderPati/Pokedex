@@ -19,9 +19,9 @@ export default function StatBar({ name, value }) {
   return (
     <div className="mb-2">
       <div className="text-xs font-semibold capitalize">{name}</div>
-      <div className="w-full bg-gray-200 h-3 overflow-hidden">
+      <div className="w-full bg-gray-700 h-3 overflow-hidden rounded-full">
         <motion.div
-          className={`h-3 border-r border-white ${getColor(value)}`}
+          className={`h-3 border-r border-black ${getColor(value)}`}
           initial={{ width: 0 }}
           animate={{ width: `${widthPercent}%` }}
           transition={{ duration: 0.5, ease: "easeOut" }}

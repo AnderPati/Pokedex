@@ -57,29 +57,45 @@ export default function RadarChart({ stats }) {
   };
 
   const options = {
-    plugins: {
-      legend: { display: false }
-    },
-    scales: {
-      r: {
-        min: 0,
-        max: maxStat,
-        ticks: { 
-            stepSize: 50,
-            font: {
-                family: "'Press Start 2P', cursive",
-                size: 10
-            }
-            },
-            pointLabels: {
-                font: {
-                    family: "'Press Start 2P', cursive",
-                    size: 12
-                }
-            }
+  esponsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { display: false }
+  },
+  scales: {
+    r: {
+      min: 0,
+      max: maxStat,
+      pointLabels: {
+        color: "#ffffff", // Texto blanco
+        font: {
+          family: "'Poppins', cursive",
+          size: 14
         }
+      },
+      ticks: {
+        color: "white", // Texto blanco
+        font: {
+          family: "'Poppins', cursive",
+          size: 10
+        },
+        backdropColor: 'transparent' // Elimina fondo detrás de los ticks
+      },
+      angleLines: {
+        color: "rgba(255, 255, 255, 0.5)" // Líneas angulares también blancas si deseas
+      },
+      grid: {
+        color: "rgba(255, 255, 255, 0.3)" // Líneas del grid más visibles y suaves
+      }
     }
-  };
+  },
+  elements: {
+    point: {
+      radius: 6, // Tamaño de los puntos
+      backgroundColor: 'rgba(34,197,94,1)'
+    }
+  }
+};
 
   return <Radar data={data} options={options} />;
 }
