@@ -63,7 +63,7 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
   const isLinear = Object.values(chainData).every(group => group.length === 1);
 
   return (
-    <div className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 shadow-2xl p-6 text-white space-y-4"
+    <div className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 p-6 text-white space-y-4"
 >
       <h3 className="text-lg font-bold">Cadena evolutiva</h3>
 

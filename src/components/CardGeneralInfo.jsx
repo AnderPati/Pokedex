@@ -25,60 +25,23 @@ export default function CardGeneralInfo({ pokemon }) {
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="rounded-2xl bg-black/50 backdrop-blur-md border border-white/10 shadow-2xl p-6 text-white space-y-6"
+      className="rounded-2xl bg-black/50 backdrop-blur-md border border-white/10 p-6 text-white space-y-6 z-0"
     >
-      <div className="w-full flex justify-end mb-4">
-          <button
-            onClick={() => setShowOfficialArtwork(!showOfficialArtwork)}
-            className="relative inline-block px-4 py-2 text-xs font-bold text-white rounded overflow-hidden z-10 bg-white/10 group cursor-pointer shadow-md rounded-full"
-          >
-          <span className="absolute inset-0 bg-[linear-gradient(135deg,_red,_orange,_yellow,_green,_blue,_indigo,_violet,_red,_orange)] animate-gradient-x rounded-full z-[-1]"></span>
-          <span className="relative z-10 text-shadow">
-            {showOfficialArtwork ? "Sprite" : "ArtWork"}
-          </span>
-        </button>
-      </div>
-      <div className="flex justify-center gap-4 flex-wrap">
-        {showOfficialArtwork ? (
-          pokemon.sprites.other?.['official-artwork']?.front_default && (
-            <img
-              src={pokemon.sprites.other['official-artwork'].front_default}
-              alt="Official Artwork"
-              onClick={() => setIsZoomed(true)}
-              className="w-40 cursor-zoom-in transition-transform duration-200 scale-140 hover:scale-145"
-            />
-          )
-        ) : (
-          <>
-            {pokemon.sprites.front_default && (
-              <img src={pokemon.sprites.front_default} alt="Frente" className="w-20 pixelated scale-110" />
-            )}
-            {pokemon.sprites.back_default && (
-              <img src={pokemon.sprites.back_default} alt="Espalda" className="w-20 pixelated scale-110" />
-            )}
-            {pokemon.sprites.front_shiny && (
-              <img src={pokemon.sprites.front_shiny} alt="Shiny" className="w-20 pixelated scale-110" />
-            )}
-          </>
-        )}
-      </div>
-      {isZoomed && (
-        <div
-          className="fixed inset-0 flex items-center justify-center z-50"
-          onClick={() => setIsZoomed(false)}
-        >
-          <img
-            src={pokemon.sprites.other['official-artwork'].front_default}
-            alt="Zoomed Official Artwork"
-            className="max-w-full max-h-full cursor-zoom-out bg-black bg-opacity-80 rounded-lg shadow-2xl scale-100 sm:scale-100 md:scale-125 lg:scale-140"
-          />
-        </div>
-      )}
-
-
-      <span className={`px-3 py-1 rounded-full text-2xl text-center font-semibold uppercase bg-opacity-80 backdrop-blur-md`}>
+      <span className={`px-3 py-1 rounded-full text-4xl text-center font-semibold uppercase bg-opacity-80 backdrop-blur-md`}>
         {pokemon.name}
       </span> 
+
+      <div className="flex justify-center gap-4 flex-wrap mt-2">
+          {pokemon.sprites.front_default && (
+            <img src={pokemon.sprites.front_default} alt="Frente" className="w-20 sm:w-25 md:w-30 lg:w-35 pixelated scale-110" />
+          )}
+          {pokemon.sprites.back_default && (
+            <img src={pokemon.sprites.back_default} alt="Espalda" className="w-20 sm:w-25 md:w-30 lg:w-35 pixelated scale-110" />
+          )}
+          {pokemon.sprites.front_shiny && (
+            <img src={pokemon.sprites.front_shiny} alt="Shiny" className="w-20 sm:w-25 md:w-30 lg:w-35 pixelated scale-110" />
+          )}
+      </div>
 
       <p className="text-center text-md text-white/80 leading-relaxed italic max-w-md mx-auto">
         {pokemon.description || "Sin descripción disponible."}

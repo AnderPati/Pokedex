@@ -38,7 +38,7 @@ export default function CardAbilitiesMoves({ pokemon }) {
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 shadow-2xl p-6 text-white space-y-6"
+      className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 p-6 text-white space-y-6"
     >
       <h3 className="text-lg font-bold pb-2">Habilidades</h3>
       <ul className="list-disc list-inside text-sm space-y-1">

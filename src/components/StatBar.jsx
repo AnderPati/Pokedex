@@ -21,10 +21,10 @@ export default function StatBar({ name, value }) {
       <div className="text-xs font-semibold capitalize">{name}</div>
       <div className="w-full bg-gray-700 h-3 overflow-hidden rounded-full">
         <motion.div
-          className={`h-3 border-r border-black ${getColor(value)}`}
+          className={`h-3 ${getColor(value)}`}
           initial={{ width: 0 }}
           animate={{ width: `${widthPercent}%` }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 1, ease: "easeInOut" }}
         />
       </div>
     </div>

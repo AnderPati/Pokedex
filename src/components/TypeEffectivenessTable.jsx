@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const typeList = [
   "normal", "fire", "water", "electric", "grass", "ice", "fighting",
@@ -67,7 +68,12 @@ export default function TypeEffectivenessTable() {
   }
 
   return (
-    <div className="align w-full max-w-full overflow-x-auto">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="align w-full max-w-full overflow-x-auto"
+    >
       <table className="min-w-[1000px] table-auto border-collapse border border-white text-xd animate-fade-in mx-auto bg-black/70 backdrop-blur-md">
         <thead>
           <tr>
@@ -125,6 +131,6 @@ export default function TypeEffectivenessTable() {
           ))}
         </tbody>
       </table>
-    </div>
+    </motion.div>
   );
 }
