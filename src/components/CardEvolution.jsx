@@ -58,14 +58,16 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
   }, [url]);
 
   if (loading) return <p className="text-sm text-gray-400">Cargando evolución...</p>;
-  if (!Object.keys(chainData).length) return <p className="text-sm text-gray-400">No tiene evoluciones.</p>;
+  if (Object.keys(chainData).length<=1 ) return (
+    <div className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 p-6 text-white">
+      <p className="text-sm text-center text-gray-300">Este pokémon no evoluciona.</p>
+    </div>
+  );
 
   const isLinear = Object.values(chainData).every(group => group.length === 1);
 
   return (
-    <div className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 p-6 text-white space-y-4"
->
-      <h3 className="text-lg font-bold">Cadena evolutiva</h3>
+    <div className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 p-6 text-white">
 
       {isLinear ? (
         <div className="flex items-center justify-center gap-4 flex-wrap">
@@ -79,6 +81,7 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
                     alt={p.name}
                     onClick={() => onSelectPokemon(p.name)}
                     className="w-25 h-25 mx-auto cursor-pointer hover:scale-110 transition-transform duration-200"
+                    loading="lazy"
                   />
                   <p
                     onClick={() => onSelectPokemon(p.name)}
@@ -95,7 +98,7 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
       ) : (
         Object.entries(chainData).map(([level, pokes], index, arr) => (
           <div key={level} className="flex flex-col items-center">
-            <div className="flex flex-wrap gap-6 justify-center">
+            <div className="flex flex-wrap gap-3 justify-center">
               {pokes.map((p) => (
                 <div key={p.name} className="text-center">
                   <img
@@ -103,10 +106,11 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
                     alt={p.name}
                     onClick={() => onSelectPokemon(p.name)}
                     className="w-25 h-25 mx-auto cursor-pointer hover:scale-110 transition-transform duration-200"
+                    loading="lazy"
                   />
                   <p
                     onClick={() => onSelectPokemon(p.name)}
-                    className="capitalize text-sm mt-1 cursor-pointer hover:underline"
+                    className="capitalize text-sm cursor-pointer hover:underline"
                   >
                     {p.name}
                   </p>
@@ -114,7 +118,7 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
               ))}
             </div>
             {index < arr.length - 1 && (
-              <div className="text-xl my-2">▼</div>
+              <div className="text-xl">▼</div>
             )}
           </div>
         ))

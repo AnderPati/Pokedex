@@ -2,28 +2,36 @@
   text-shadow: 0px 0px 3px #000;
 }
 
-@keyframes spin-slow {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+@keyframes pokeball-shake {
+  0% { transform: rotate(20deg) translateX(4px); }
+  20% { transform: rotate(-15deg) translateX(-7px); }
+  40% { transform: rotate(15deg) translateX(3px); }
+  60% { transform: rotate(5deg) translateX(1px); }
+  80% { transform: rotate(15deg) translateX(3px); }
+  100% { transform: rotate(20deg) translateX(4px); }
 }
 .animate-spin-slow {
-  animation: spin-slow 2s linear infinite;
+  animation: pokeball-shake 2s ease-out infinite;
 }
 
 @keyframes loading-bar {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(-100%) scaleX(0);
+  }
+  40%{
+    transform: translateX(-5%) scaleX(.7);
+  }
+  60%{
+    transform: translateX(5%) scaleX(.7);
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(100%) scaleX(0);
   }
 }
+
 .animate-loading-bar {
   width: 100%;
+  border-radius: 100px;
   animation: loading-bar 1.5s linear infinite;
 }
 
@@ -54,3 +62,27 @@
   scrollbar-width: thin;
   scrollbar-color: #888 transparent;
 }
+
+@keyframes marquee1 {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee2 {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee3 {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee1 {
+  animation: marquee1 70s linear infinite;
+}
+.animate-marquee2 {
+  animation: marquee2 70s linear infinite reverse;
+}
+.animate-marquee3 {
+  animation: marquee3 120s linear infinite;
+}
+

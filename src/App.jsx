@@ -3,6 +3,7 @@ import './app.css';
 import SearchBar from "./components/SearchBar";
 import PokemonCard from "./components/PokemonCards";
 import TypeEffectivenessTable from "./components/TypeEffectivenessTable";
+import Hero from "./components/Hero";
 import { motion } from "framer-motion";
 
 // Hook para obtener el ancho de la ventana
@@ -151,7 +152,7 @@ function App() {
   const randomOffset = () => Math.floor(Math.random() * 61) - 30;
   const isMobile = width < 768;
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] text-white  z-10">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] text-white z-10 min-w-[375px]">
 
       {/* Header dinámico */}
       <div
@@ -165,12 +166,15 @@ function App() {
           boxShadow: scrollProgress > 0.05 ? `0 4px 12px rgba(0,0,0,0.4)` : "none"
         }}
       >
-        <h1
-          className="text-center font-black text-[#da082b] transition-all duration-300 mb-1 mt-10 md:mt-0"
-          style={{ fontSize: dynamicFontSize }}
-        >
-          POKÉDEX
-        </h1>
+        <div className="flex justify-center">
+          <h1
+            onClick={() => (setPokemon(null), setView("search"))}
+            className="text-center font-black text-[#da082b] transition-all duration-300 mb-1 mt-10 md:mt-0 cursor-pointer"
+            style={{ fontSize: dynamicFontSize }}
+          >
+            POKÉDEX
+          </h1>
+        </div>
 
         <SearchBar
           search={search}
@@ -187,7 +191,7 @@ function App() {
             onClick={() => setView("pokedex")}
             className="bg-[#279cea] text-[#082437] font-bold px-3 py-1 md:px-4 md:py-2 text-sm lg:text-base rounded-full"
           >
-            Ver Pokédex
+            Pókedex entera
           </button>
           <button
             onClick={() => setView("types")}
@@ -205,44 +209,54 @@ function App() {
           <div className="w-4 h-4 sm:w-6 sm:h-6 rounded-full bg-green-300 border-2 border-[#222323] shadow-md"></div>
         </div>
       </div>
-      <div className="p-3 max-w-[1536px] mx-auto relative">
-        {/* Imagen del Pokémon */}
-        {view === "search" && pokemon?.sprites?.other?.['official-artwork']?.front_default && (
-          <motion.div
-            key={pokemon.name}
-            initial={{ opacity: 0, x: randomOffset(), y: randomOffset(), scale: 1.05 }}
-            animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="absolute z-[1] left-1/2 top-10 lg:top-30 -translate-x-1/2 scale-[1.2] lg:scale-[1.4] lg:left-1/4"
-          >
-            <img
-              src={pokemon.sprites.other['official-artwork'].front_default}
-              className="max-h-[90vh] object-contain"
-              alt={`${pokemon.name} artwork`}
-            />
-          </motion.div>
-        )}
+
+      <div className="p-3 max-w-[1536px] mx-auto relative z-0">
+
+          {/* Imagen del Pokémon */}
+          {view === "search" && pokemon?.sprites?.other?.['official-artwork']?.front_default && (
+            <motion.div
+              key={pokemon.name}
+              initial={{ opacity: 0, x: randomOffset(), y: randomOffset(), scale: 1.05 }}
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="hidden lg:block absolute left-1/2 top-10 lg:top-30 -translate-x-1/2 scale-[1.2] lg:scale-[1.4] lg:left-1/4 z-45"
+            >
+              <img
+                src={pokemon.sprites.other['official-artwork'].front_default}
+                className="max-h-[90vh] object-contain"
+                alt={`${pokemon.name} artwork`}
+                loading="lazy"
+              />
+            </motion.div>
+          )}
 
         {/* Contenido principal */}
         <div className="relative py-10 flex flex-col items-center">
           {view === "search" && (
             <>
               {loadingPokemon && (
-                <div className="absolute my-12 flex flex-col items-center space-y-4 z-10">
-                  <div className="relative w-16 h-16 animate-spin-slow">
-                    <div className="absolute inset-0 border-[6px] border-white border-t-[#da082b] rounded-full"></div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-3 h-3 bg-[#da082b] rounded-full animate-ping"></div>
+                <div className="absolute flex flex-col items-center space-y-4 rounded-[20px] z-50 backdrop-blur-2xl w-[100%] py-10">
+                  <div className="relative w-16 h-16 animate-spin-slow border-2 border-black rounded-full">
+                    <div className="absolute inset-0 border-[6px] border-white bg-white rounded-full"></div>
+                    <div className="absolute inset-0  flex items-start">
+                      <div className="w-16 h-1/2 bg-[#da082b] rounded-t-[999px] border-b-3 border-black"></div>
+                    </div>
+                    <div className="absolute inset-0  flex items-center justify-center">
+                      <div className="w-5 h-5 mb-[2px] bg-white border-3 border-black rounded-full"></div>
+                    </div>
+                    <div className="absolute inset-0  flex items-center justify-center">
+                      <div className="w-2 h-2 mb-[2px] bg-[#da082b] rounded-full animate-ping"></div>
                     </div>
                   </div>
-                  <p className="text-white font-mono text-lg animate-pulse drop-shadow-md">Capturando Pokémon</p>
+                  <p className="text-white font-mono text-lg animate-pulse text-shadow">Capturando Pokémon</p>
                   <div className="w-48 h-2 bg-gray-700 rounded-full overflow-hidden">
                     <div className="h-full bg-[#da082b] animate-loading-bar"></div>
                   </div>
                 </div>
               )}
               {error && <p className="text-red-400 font-mono text-center">{error}</p>}
-              {pokemon && <PokemonCard pokemon={pokemon} onSelectPokemon={fetchPokemon} />}
+              {pokemon && <PokemonCard pokemon={pokemon} onSelectPokemon={fetchPokemon}/>}
+              {!pokemon  && !error && <Hero />}
             </>
           )}
 
@@ -252,6 +266,7 @@ function App() {
 
           {view === "types" && <TypeEffectivenessTable />}
         </div>
+
       </div>
     </div>
   );
