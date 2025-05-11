@@ -52,14 +52,20 @@ export default function TypeEffectivenessTable() {
 
   if (loadingPokemon) {
     return (
-      <div className="my-12 flex flex-col items-center space-y-4">
-        <div className="relative w-16 h-16 animate-spin-slow">
-          <div className="absolute inset-0 border-[6px] border-white border-t-[#da082b] rounded-full"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-3 h-3 bg-[#da082b] rounded-full animate-ping"></div>
+      <div className="absolute flex flex-col items-center space-y-4 rounded-[20px] z-50 backdrop-blur-2xl w-[100%] py-10">
+        <div className="relative w-16 h-16 animate-spin-slow border-2 border-black rounded-full">
+          <div className="absolute inset-0 border-[6px] border-white bg-white rounded-full"></div>
+          <div className="absolute inset-0  flex items-start">
+            <div className="w-16 h-1/2 bg-[#da082b] rounded-t-[999px] border-b-3 border-black"></div>
+          </div>
+          <div className="absolute inset-0  flex items-center justify-center">
+            <div className="w-5 h-5 mb-[2px] bg-white border-3 border-black rounded-full"></div>
+          </div>
+          <div className="absolute inset-0  flex items-center justify-center">
+            <div className="w-2 h-2 mb-[2px] bg-[#da082b] rounded-full animate-ping"></div>
           </div>
         </div>
-        <p className="text-white font-mono text-lg animate-pulse drop-shadow-md">Estudiando Tipos</p>
+        <p className="text-white font-mono text-lg animate-pulse text-shadow">Estudiando Tipos</p>
         <div className="w-48 h-2 bg-gray-700 rounded-full overflow-hidden">
           <div className="h-full bg-[#da082b] animate-loading-bar"></div>
         </div>

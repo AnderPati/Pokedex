@@ -44,7 +44,7 @@ export default function Hero() {
       >
         {[...row, ...row].map((src, i) => (
           <motion.img
-            initial={{ opacity: 0, x: randomOffset(), y: 0, scale: 1.05 }}
+            initial={{ opacity: 0, x: randomOffset(), y: 20, scale: 1.05 }}
             animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             transition={{ duration: 3, ease: "easeOut" }}
             key={`${rowIndex}-${i}`}

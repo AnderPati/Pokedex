@@ -11,7 +11,7 @@
   100% { transform: rotate(20deg) translateX(4px); }
 }
 .animate-spin-slow {
-  animation: pokeball-shake 2s ease-out infinite;
+  animation: pokeball-shake 1.75s ease-out infinite;
 }
 
 @keyframes loading-bar {
@@ -24,6 +24,11 @@
   60%{
     transform: translateX(5%) scaleX(.7);
   }
+
+  80%{
+    transform: translateX(47.5%) scaleX(0.1);
+  }
+
   100% {
     transform: translateX(100%) scaleX(0);
   }
@@ -32,7 +37,7 @@
 .animate-loading-bar {
   width: 100%;
   border-radius: 100px;
-  animation: loading-bar 1.5s linear infinite;
+  animation: loading-bar 2s linear infinite;
 }
 
 .sticky-header {
@@ -86,3 +91,34 @@
   animation: marquee3 120s linear infinite;
 }
 
+
+/* EASTER EGG */
+.diamond-rain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.diamond {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #ffd700, #e0e0ff);
+  transform: rotate(45deg);
+  opacity: 0.8;
+  animation: fall linear infinite;
+  transform: translateY(-100%)
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100%) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(var(--translateY, 500px)) rotate(45deg);
+    opacity: 0;
+  }
+}

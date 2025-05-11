@@ -38,26 +38,26 @@ export default function CardAbilitiesMoves({ pokemon }) {
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 p-6 text-white space-y-6"
+      className="rounded-2xl bg-black/50 backdrop-blur-md border border-white/10 p-6 text-white space-y-6"
     >
-      <h3 className="text-lg font-bold pb-2">Habilidades</h3>
+      <h3 className="text-lg font-bold">Habilidades</h3>
       <ul className="list-disc list-inside text-sm space-y-1">
         {pokemon.translatedAbilities?.map((ability, i) => (
           <li key={i}>{ability}</li>
         ))}
       </ul>
 
-      <h3 className="text-lg font-bold border-t py-2 mt-4">Movimientos por nivel</h3>
-      <ul className="text-sm space-y-2 pr-2">
+      <h3 className="text-lg font-bold pt-4">Movimientos por nivel</h3>
+      <ul className="text-sm space-y-1 pr-2 flex flex-col inline-block">
         {pokemon.translatedMoves
           .sort((a, b) => a.level - b.level)
           .map((move, i) => (
             <li key={i} className="relative">
               <button
                 onClick={() => toggleTooltip(i)}
-                className="text-left w-full font-semibold cursor-pointer focus:outline-none hover:underline"
+                className="text-left w-full cursor-pointer focus:outline-none hover:bg-white/10 px-3 py-1 rounded-full"
               >
-                Lvl {move.level}: {move.name}
+                Nv. {move.level}: {move.name}
               </button>
 
               {/* Tooltip visible si coincide el índice */}
@@ -68,16 +68,16 @@ export default function CardAbilitiesMoves({ pokemon }) {
                   <p className="text-xs text-gray-700 italic mb-1">{move.effect || "Sin efecto"}</p>
                   <div className="text-xs space-y-1">
                     <p>
-                      <strong>Tipo:</strong> <span className={`text-white px-2 py-1 text-xs font-semibold uppercase ${getTypeColor(move.type)} text-shadow`}>{move.type}</span>
-                    </p>
-                    <p>
-                      <strong>Clase:</strong> {move.damage_class}
-                    </p>
-                    <p>
                       <strong>Poder:</strong> {move.power ?? "—"}
                     </p>
                     <p>
                       <strong>Precisión:</strong> {move.accuracy ?? "—"}
+                    </p>
+                    <p>
+                      <strong>Tipo:</strong> <span className={`text-white px-2 py-0 text-xs font-semibold uppercase rounded-full ${getTypeColor(move.type)} text-shadow`}>{move.type}</span>
+                    </p>
+                    <p>
+                      <strong>Clase:</strong> {move.damage_class}
                     </p>
                   </div>
                 </div>

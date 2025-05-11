@@ -72,7 +72,7 @@ export default function CardTypeEffectiveness({ pokemon }) {
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="rounded-2xl bg-black/70 backdrop-blur-md border border-white/10 p-6 text-white space-y-6"
+      className="rounded-2xl bg-black/50 border border-white/10 p-6 text-white space-y-6"
     >
       <h3 className="text-xl font-bold pb-2">Daño recibido</h3>
 

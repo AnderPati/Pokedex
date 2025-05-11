@@ -17,6 +17,7 @@ const getTypeColor = (typeName) => {
   return typeColors[typeName.toLowerCase()] || "bg-gray-300";
 };
 
+const randomOffset = () => Math.floor(Math.random() * 61) - 30;
 
 export default function CardGeneralInfo({ pokemon }) {
   const [showOfficialArtwork, setShowOfficialArtwork] = useState(false);
@@ -34,28 +35,34 @@ export default function CardGeneralInfo({ pokemon }) {
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="relative z-20 rounded-2xl bg-black/50 border border-white/10 p-6 text-white space-y-6 lg:backdrop-blur-xs"
+      className="relative z-20 rounded-2xl bg-black/50 border border-white/10 p-6 text-white space-y-6"
     >
       <div className="relative">
-        <div className="absolute w-[100%] left-1/2 -translate-x-1/2 lg:hidden -bottom-25 z-10">
+        <motion.div
+              key={pokemon.name}
+              initial={{ opacity: 0, x: randomOffset(), y: randomOffset(), scale: 1.05 }}
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="absolute w-[100%] left-1/2 -translate-x-1/2 lg:hidden -bottom-25 z-10"
+        >
           <img
             src={pokemon.sprites.other?.['official-artwork']?.front_default}
             alt={`${pokemon.name} artwork`}
             className="m-auto scale-[0.9]"
             loading="lazy"
           />
-        </div>
+        </motion.div>
       </div>
       
       <div className="relative text-center z-20">
         {/* Capa de sombra (debajo del texto) */}
         <span
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
-                    text-5xl font-extrabold uppercase tracking-wide 
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 tra
+                    text-5xl font-extrabold uppercase tracking-wide w-full
                     opacity-80 text-[#0c0c0c] select-none pointer-events-none text-shadow lg:hidden"
           aria-hidden="true"
         >
-          {pokemon.name}
+          {pokemon.translatedName || pokemon.name}
         </span>
 
         {/* Texto con degradado */}
@@ -63,23 +70,50 @@ export default function CardGeneralInfo({ pokemon }) {
           className="text-5xl font-extrabold uppercase tracking-wide relative"
           style={gradientStyle}
         >
-          {pokemon.name}
+          {pokemon.translatedName || pokemon.name}
         </h2>
       </div>
 
       <div className="flex justify-center gap-4 flex-wrap mt-2">
           {pokemon.sprites.front_default && (
-            <img src={pokemon.sprites.front_default} alt="Frente" className="w-30 lg:w-35 pixelated scale-110" loading="lazy"/>
+            <motion.img
+              key={`${pokemon.name}-front`}
+              initial={{ opacity: 0, x: randomOffset(), y: randomOffset(), scale: 1.05 }}
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              alt="Frente"
+              className="w-30 lg:w-35 pixelated scale-110"
+              loading="lazy"
+              src={pokemon.sprites.front_default}
+            />
           )}
           {pokemon.sprites.back_default && (
-            <img src={pokemon.sprites.back_default} alt="Espalda" className="w-30 lg:w-35 pixelated scale-110" loading="lazy"/>
-          )}
-          {pokemon.sprites.front_shiny && (
-            <img src={pokemon.sprites.front_shiny} alt="Shiny" className="w-30 lg:w-35 pixelated scale-110" loading="lazy"/>
-          )}
+            <motion.img
+              key={`${pokemon.name}-back`}
+              initial={{ opacity: 0, x: randomOffset(), y: randomOffset(), scale: 1.05 }}
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              alt="Espalda"
+              className="w-30 lg:w-35 pixelated scale-110"
+              loading="lazy"
+              src={pokemon.sprites.back_default}
+              />
+            )}
+            {pokemon.sprites.front_shiny && (
+              <motion.img
+                key={`${pokemon.name}-shiny`}
+                initial={{ opacity: 0, x: randomOffset(), y: randomOffset(), scale: 1.05 }}
+                animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                alt="Shiny"
+                className="w-30 lg:w-35 pixelated scale-110"
+                loading="lazy"
+                src={pokemon.sprites.front_shiny}
+              />
+            )}
       </div>
 
-      <p className="text-center text-md text-white/80 leading-relaxed italic max-w-md mx-auto">
+      <p className="text-center text-md text-white/80 leading-relaxed italic w-full mx-auto">
         {pokemon.description || "Sin descripción disponible."}
       </p>
 
