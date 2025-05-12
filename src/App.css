@@ -102,6 +102,7 @@
 }
 
 .diamond {
+  pointer-events: none;
   position: absolute;
   width: 10px;
   height: 10px;

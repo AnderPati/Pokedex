@@ -110,7 +110,6 @@ function App() {
 
       return;
     }
-    setIsEasterEgg(false);
 
 
 
@@ -218,6 +217,7 @@ function App() {
         translatedName
       });
 
+      setIsEasterEgg(false);
       setLoadingPokemon(false);
       setError(null);
     } catch (err) {
