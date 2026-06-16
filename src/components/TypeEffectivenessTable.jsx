@@ -84,7 +84,7 @@ export default function TypeEffectivenessTable() {
         <thead>
           <tr>
             <th className="sticky left-0 z-10 border border-white p-2 bg-black text-white">ATK\DF</th>
-            {typeList.map((type, colIdx) => (
+            {typeList.map((type) => (
               <th
                 key={type}
                 className={`border px-1 py-0.5 text-center text-[14px] whitespace-nowrap h-8 text-white ${getTypeColor(type)} text-shadow`}

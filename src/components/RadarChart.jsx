@@ -57,7 +57,7 @@ export default function RadarChart({ stats }) {
   };
 
   const options = {
-  esponsive: true,
+  responsive: true,
   maintainAspectRatio: false,
   plugins: {
     legend: { display: false }

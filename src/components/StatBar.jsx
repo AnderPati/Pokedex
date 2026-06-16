@@ -14,7 +14,7 @@ export default function StatBar({ name, value }) {
     return "bg-[#fa5858]"; // rojo intenso                  // rojo profundo
   };
 
-  const widthPercent = Math.max(value / 2.55, 8); // Mínimo 8% para visibilidad
+  const widthPercent = Math.max((value / maxStat) * 100, 8); // Mínimo 8% para visibilidad
 
   return (
     <div className="mb-1">

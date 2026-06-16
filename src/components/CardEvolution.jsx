@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
 export default function EvolutionChain({ url, onSelectPokemon }) {
   const [chainData, setChainData] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const getTranslatedName = async (url, lang = "es") => {
+  const getTranslatedName = useCallback(async (url, lang = "es") => {
     try {
       const res = await fetch(url);
       const data = await res.json();
@@ -20,9 +20,9 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
       console.error("Error al traducir nombre desde", url, error);
       return "";
     }
-  };
+  }, []);
 
-  const parseChain = async (node) => {
+  const parseChain = useCallback(async (node) => {
     const list = [];
 
     const traverse = async (stage, depth = 0) => {
@@ -110,7 +110,7 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
 
     await traverse(node);
     return list;
-  };
+  }, [getTranslatedName]);
 
   useEffect(() => {
     const fetchChain = async () => {
@@ -151,7 +151,7 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
     };
 
     if (url) fetchChain();
-  }, [url]);
+  }, [url, parseChain]);
 
   if (loading)
     return (
@@ -256,7 +256,7 @@ export default function EvolutionChain({ url, onSelectPokemon }) {
         Object.entries(chainData).map(([level, pokes], index, arr) => (
           <div key={level} className="flex flex-col items-center">
             <div className="flex flex-wrap gap-3 justify-center">
-              {pokes.map((p, idx) => (
+              {pokes.map((p) => (
                 <div key={p.name} className="text-center">
                   <motion.div
                     key={p.name}

@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import StatBar from "./StatBar";
 import RadarChart from "./RadarChart";
-import { useState } from "react";
 
 const typeColors = {
   normal: "#9ea09e", fire: "#e72324", water: "#2481f0", electric: "#fac100",
@@ -20,8 +19,6 @@ const getTypeColor = (typeName) => {
 const randomOffset = () => Math.floor(Math.random() * 61) - 30;
 
 export default function CardGeneralInfo({ pokemon }) {
-  const [showOfficialArtwork, setShowOfficialArtwork] = useState(false);
-  const [isZoomed, setIsZoomed] = useState(false);
 
   const typeHexColors = pokemon.types.map(t => typeColors[t.type.name.toLowerCase()]);
   const gradientStyle = {

@@ -124,7 +124,7 @@ function App() {
         if (!res.ok) throw new Error('No encontrado por número');
         const data = await res.json();
         resolvedName = data.name;
-      } catch (err) {
+      } catch {
         setError("Pokémon no encontrado");
         setLoadingPokemon(false);
         return;
@@ -220,7 +220,7 @@ function App() {
       setIsEasterEgg(false);
       setLoadingPokemon(false);
       setError(null);
-    } catch (err) {
+    } catch {
       setPokemon(null);
       setLoadingPokemon(false);
       setError("Pokémon no encontrado");
