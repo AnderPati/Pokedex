@@ -13,7 +13,7 @@ const typeColors = {
 
 
 const getTypeColor = (typeName) => {
-  return typeColors[typeName.toLowerCase()] || "bg-gray-300";
+  return typeColors[typeName.toLowerCase()] || "#d1d5db";
 };
 
 const randomOffset = () => Math.floor(Math.random() * 61) - 30;
@@ -119,7 +119,8 @@ export default function CardGeneralInfo({ pokemon }) {
           {pokemon.types.map((t, i) => (
             <span
               key={t.type.name}
-              className={`px-2 py-1 text-white rounded-full font-semibold bg-[${getTypeColor(t.type.name)}] text-shadow`}
+              className="px-2 py-1 text-white rounded-full font-semibold text-shadow"
+              style={{ backgroundColor: getTypeColor(t.type.name) }}
             >
               {pokemon.translatedTypes?.[i] || t.type.name}
             </span>
